@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load sitemetrics %}
+{% load staticfiles %}
+{% load flatblock_tags %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% flatblock 'default_title' using 'flatblocks/row.html' %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description"
+            content="{% block description %}{% flatblock 'default_description' using 'flatblocks/row.html' %}{% endblock %}" />
+        <meta name="keywords"
+            content="{% flatblock 'prepend_keywords' using 'flatblocks/row.html' %} {% block keywords %}{% endblock %}" />
+        <meta name="viewport" content="{% block viewport %}width=device-width, initial-scale=1.0{% endblock %}">
+
+        {% block favicon %}
+            <link rel="shortcut icon" href="{% static "frontend/img/favicon.ico" %}" />
+        {% endblock %}
+
+        {% block styles %}
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+            <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <link rel="stylesheet" type="text/css" href="{% static "frontend/css/main.css" %}" />
+        {% endblock %}
+        {% block extrastyles %}{% endblock %}
+
+        {# Additional CSS, meta - specific to certain pages #}
+        {% block extrahead %}{% endblock %}
+        {% block tracking %}
+            <!-- analytics -->
+            {% sitemetrics %}
+        {% endblock %}
+    </head>
+
+    <body {% block body_attrs %}{% endblock %} class="{% block body_class %}{% endblock %}">
+        {# Main content goes in this 'layout' block #}
+        {% block layout %}
+            {% block header %}
+                {% include 'partials/header.html' %}
+            {% endblock %}
+                <!-- Begin page content -->
+                <div class="container">
+                {% block content %}
+                  <div class="page-header">
+                    <h1>Sticky footer with fixed navbar</h1>
+                  </div>
+                  <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>.</p>
+                  <p>Back to <a href="/">the default sticky footer</a> minus the navbar.</p>
+                  {% endblock %}
+                </div>
+            {% block footer %}
+                {% include "partials/footer.html" %}
+            {% endblock %}
+        {% endblock %}
+
+
+        {% block cdn_scripts %}
+            <!-- jQuery -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+            <!-- Twitter Bootstrap CDN-->
+            <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+            <!-- Less CDN-->
+            <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+        {% endblock %}
+        {# Block for body onload functions #}
+        <script type="text/javascript">
+            {% block extrajs %}{% endblock %}
+            $(function() {
+                {% block onbodyload %}
+                {% endblock %}
+            });
+        </script>
+        {% block tailjs %}{% endblock %}
+    </body>
+</html>
