@@ -1,0 +1,16 @@
+{
+  "influxdb": {
+    "type": "influxdb",
+    "url": "http://127.0.0.1:8086/db/freeloading",
+    "username": "admin1",
+    "password": "admin"
+  },
+  "grafana": {
+    "type": "influxdb",
+    "url": "http://127.0.0.1:8086/db/grafana",
+    "username": "admin",
+    "password": "admin",
+    "grafanaDB": true,
+    "supportMetrics": false
+  }
+}

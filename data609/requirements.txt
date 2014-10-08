@@ -1,0 +1,9 @@
+Django==1.7
+django-allauth==0.18.0
+django-flatblocks==0.8
+django-sitemetrics==0.4.2
+oauthlib==0.6.3
+python3-openid==3.0.4
+requests==2.4.1
+requests-oauthlib==0.4.1
+djangorestframework==2.4.3

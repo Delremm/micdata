@@ -2,6 +2,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+from dbproxy.views import ProfileView, ManageView
+
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'data609.views.home', name='home'),
@@ -12,6 +15,11 @@ urlpatterns = patterns('',
     (r'^accounts/', include('allauth.urls')),
     url(r'^dashboard/$', TemplateView.as_view(
         template_name="src/index.html"), name="dashboard"),
+    url(r'^api/', include('dbproxy.api', namespace='api')),
+    url(r'^profile/$', ProfileView.as_view(), name="profile"),
+    url(r'^manage/$', ManageView.as_view(), name="manage"),
+
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
 
 from django.conf import settings

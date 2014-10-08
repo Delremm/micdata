@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{# Additional JS scripts #}
+{% block tailjs %}
+
+    <!-- Angular lib-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.js"></script>
+    <!-- if AngularJS fails to load fallback a local version -->
+    <script>window.angular || document.write('<script src="{% static "frontend/js/angular/angular.min.js" %}"><\/script>');</script>
+{% endblock %}

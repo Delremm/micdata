@@ -1,0 +1,86 @@
+{% extends 'angular_base.html' %}
+{% load staticfiles %}
+{% load flatblock_tags %}
+{% load staticfiles %}
+
+{% block body_attrs %}ng-app="manageApp" ng-controller="ManageCtrl"{% endblock %}
+{% block content %}
+    <div ng-cloak>
+    <div class="row">
+        <h2>Management</h2>
+        <a class="" href="/static/grafana/src/index.html">go to dashboard</a>
+    </div>
+    <hr>
+    <div class="row">
+        <div>
+            <div ng-repeat="node in nodes">
+            <div class="row">
+                <div class="col-md-3">name: <b>{[{ node.title }]}</b></div>
+                <div class="col-md-2">
+                    space used: <i>{[{ node.space_used }]} / {[{ node.total_space }]} GB</i>
+                </div>
+                <div class="col-md-4">api-key: <code>{[{ node.api_key }]}</code></div>
+                <div class="col-md-3"><small>url: {[{ node.url }]}</small></div>
+            </div>
+            <div>Users:</div>
+            <div class="row">
+                <div class="col-md-12" ng-repeat="nodeuser in node.nodeuser_set">
+                username: <span class="text-muted">{[{ nodeuser.username }]}</span>
+                password: <span class="text-muted">{[{ nodeuser.password }]}</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="row">
+        <div>
+        <p>
+        servers: <span class="code">{[{ user_profile.nodes.current_nodes_num }]}/{[{ user_profile.nodes.nodes_num }]}</span>
+        </p>
+        </div>
+        <div ng-show="user_profile.adding_nodes_is_available">
+            <button ng-click="show_add_node_form=!show_add_node_form" class="btn btn-default">Add node</button>
+            <hr>
+
+            <div ng-show="show_add_node_form">
+                <p><b>size: {[{ user_profile.nodes.default_node_size }]}GB</b></p>
+                <form class="form-horizontal" role="form" name="add_node_form">
+                  <div class="form-group form-group-lg">
+                    <label class="col-sm-2 control-label" for="nodeNameInput">Server name</label>
+                    <div class="col-sm-4">
+                      <input class="form-control" type="text" ng-model="node_to_add.name"  id="nodeNameInput" placeholder="Server name" required>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-lg">
+                    <label class="col-sm-2 control-label" for="nodeAdminInput">Admin username</label>
+                    <div class="col-sm-4">
+                      <input class="form-control" type="text" ng-model="node_to_add.username" id="nodeAdminInput" placeholder="Admin username" required>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="nodeAdminPasswordInput">Admin password</label>
+                    <div class="col-sm-4">
+                      <input class="form-control" type="password" ng-model="node_to_add.password" id="nodeAdminPasswordInput" placeholder="Password" required>
+                    </div>
+                  </div>
+                  <button type="submit" ng-click="add_node()" ng-disabled="add_node_form.$invalid" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div ng-show="!user_profile.adding_nodes_is_available">
+        <p>To increse number of servers: <a href="#/profile/servers/">purchase more servers</a>
+        </div>
+    </div>
+    <br>
+    </div>
+{% endblock %}
+
+{% block tailjs %}
+    {{ block.super }}
+    <!-- custom scripts -->
+    <script src="{% static "frontend/js/angular/manage_app/app.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "frontend/js/angular/manage_app/controllers.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "frontend/js/angular/manage_app/directives.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "frontend/js/angular/manage_app/services.js" %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

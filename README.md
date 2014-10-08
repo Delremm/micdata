@@ -12,7 +12,7 @@
 просмотр сырых данных
 
 Откуда извлекать?
-MySQL(возможность указания схемы) MsSQL, csv, api, apps(написать библиотеку для С).
+MySQL(возможность указания схемы) MsSQL, csv, OPC, api, apps(написать библиотеку для С).
 MicDaemon
 
 Сравнить программы логирования.
@@ -117,3 +117,17 @@ Dashboards(Model):
     create db(with user)
     no more than 5
 
+
+#Русские решения
+http://web-telemetry.ru/
+
+#Цены
+демо 7дней бесплатно
+10GB 
+калькулятор размера
+
+#grabber
+nx-log easiest + windows
+
+http://www.treasuredata.com/
+tempodb

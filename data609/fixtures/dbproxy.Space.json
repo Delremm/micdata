@@ -1,0 +1,1 @@
+[{"fields": {"space": 10}, "model": "dbproxy.space", "pk": 1}, {"fields": {"space": 20}, "model": "dbproxy.space", "pk": 2}, {"fields": {"space": 50}, "model": "dbproxy.space", "pk": 3}, {"fields": {"space": 100}, "model": "dbproxy.space", "pk": 4}]

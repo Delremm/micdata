@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'frontend/grafana/'),)
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'frontend/static/grafana/'),)
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/grafana/src/'),)
 SITE_ID = 1
 # Application definition
@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'sitemetrics',
     'allauth',
     'allauth.account',
+    'rest_framework',
+    'dbproxy',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -111,3 +113,11 @@ AUTHENTICATION_BACKENDS = (
 )
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
+
+LOGIN_REDIRECT_URL = "/manage/"
+
+PROJECT_SETTINGS = {
+    'default_grafanadb_title': 'grafanadb',
+    'default_grafanadb_host': '127.0.0.1',
+    'default_grafanadb_port': 8086,
+}

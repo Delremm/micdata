@@ -37,3 +37,9 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+/* Angular hide ng-cloak before it's loaded */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
