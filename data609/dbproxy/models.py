@@ -40,7 +40,10 @@ class Node(models.Model):
         return self.url
 
     def save(self, *args, **kwargs):
-        if not self.server:
+        try:
+            if not self.server:
+                self.server = get_free_server()
+        except:
             self.server = get_free_server()
         if not self.name:
             self.name = '%s__%s' % (self.user.username, self.title)

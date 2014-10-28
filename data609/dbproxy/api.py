@@ -6,34 +6,38 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from rest_framework import status
 
-class NodeUserSerializer(serializers.HyperlinkedModelSerializer):
+class NodeUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = NodeUser
         fields = ('username', 'password')
 
 
 # Serializers define the API representation.
-class NodeSerializer(serializers.HyperlinkedModelSerializer):
+class NodeSerializer(serializers.ModelSerializer):
     space_used = serializers.Field(source='get_space_used')
     total_space = serializers.Field(source='get_total_space')
-    nodeuser_set = NodeUserSerializer(many=True)
+    nodeuser_set = NodeUserSerializer(many=True, required=False)
 
     class Meta:
         model = Node
-        fields = ('title', 'name', 'url', 'server', 'api_key', 'space_used', 'total_space', 'nodeuser_set')
+        fields = ('id', 'title', 'name', 'url', 'server', 'api_key', 'space_used', 'total_space', 'nodeuser_set')
         read_only_fields = ('name', 'url', 'server', 'api_key')
 
 
 # ViewSets define the view behavior.
 class NodeViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = NodeSerializer
 
     def get_queryset(self):
         return Node.objects.filter(is_grafanadb=False, user=self.request.user)
-    serializer_class = NodeSerializer
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
 
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+
+class ProfileSerializer(serializers.ModelSerializer):
     num_of_nodes = serializers.Field(source='get_num_of_nodes')
 
     class Meta:

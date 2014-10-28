@@ -5,6 +5,7 @@
 
 {% block body_attrs %}ng-app="manageApp" ng-controller="ManageCtrl"{% endblock %}
 {% block content %}
+<div class="container">
     <div ng-cloak>
     <div class="row">
         <h2>Management</h2>
@@ -15,7 +16,10 @@
         <div>
             <div ng-repeat="node in nodes">
             <div class="row">
-                <div class="col-md-3">name: <b>{[{ node.title }]}</b></div>
+                <div class="col-md-9">name: <b>{[{ node.title }]}</b></div>
+                <div class="col-md-3"><button class="btn btn-small" ng-click="delete_node(node)">delete</button></div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     space used: <i>{[{ node.space_used }]} / {[{ node.total_space }]} GB</i>
                 </div>
@@ -49,31 +53,21 @@
                   <div class="form-group form-group-lg">
                     <label class="col-sm-2 control-label" for="nodeNameInput">Server name</label>
                     <div class="col-sm-4">
-                      <input class="form-control" type="text" ng-model="node_to_add.name"  id="nodeNameInput" placeholder="Server name" required>
+                      <input class="form-control" type="text" latin-chars ng-model="node_to_add.name"  id="nodeNameInput" placeholder="Server name" required>
                     </div>
                   </div>
-                  <div class="form-group form-group-lg">
-                    <label class="col-sm-2 control-label" for="nodeAdminInput">Admin username</label>
-                    <div class="col-sm-4">
-                      <input class="form-control" type="text" ng-model="node_to_add.username" id="nodeAdminInput" placeholder="Admin username" required>
-                    </div>
-                  </div>
-                  <div class="form-group form-group-sm">
-                    <label class="col-sm-2 control-label" for="nodeAdminPasswordInput">Admin password</label>
-                    <div class="col-sm-4">
-                      <input class="form-control" type="password" ng-model="node_to_add.password" id="nodeAdminPasswordInput" placeholder="Password" required>
-                    </div>
-                  </div>
+
                   <button type="submit" ng-click="add_node()" ng-disabled="add_node_form.$invalid" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
         <div ng-show="!user_profile.adding_nodes_is_available">
-        <p>To increse number of servers: <a href="#/profile/servers/">purchase more servers</a>
+        <p>To increse number of servers: <a href="#/profile/servers/">purchase more servers</a></p>
         </div>
     </div>
     <br>
     </div>
+</div>
 {% endblock %}
 
 {% block tailjs %}

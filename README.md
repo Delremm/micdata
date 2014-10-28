@@ -131,3 +131,12 @@ nx-log easiest + windows
 
 http://www.treasuredata.com/
 tempodb
+
+# electricity bills
+http://www.meters.taipit.ru/electro/catalog/25/
+http://etrivia.ru/goods/Datchik-temperatury-ds18b20
+
+
+# IoT
+https://xively.com/?from_cosm=true
+https://xively.com/solution/by_opportunity/

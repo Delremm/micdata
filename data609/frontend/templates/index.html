@@ -1,3 +1,23 @@
 {% extends "base.html" %}
 {% load flatblock_tags %}
 {% load staticfiles %}
+
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1>Collect, store and analyze data.</h1>
+    <p> Cloud-based service for monitoring and analytics of sensor data.</p>
+    <p><a class="btn btn-primary btn-lg" role="button">Try a demo &raquo;</a></p>
+  </div>
+</div>
+<div class="container">
+<h3>What do we do</h3>
+<div>
+    1. We collect data from various sources, e.g. SQL database, OPC-server or just a file. Actually we can collect data from almost any source. 
+    Our service allow you to collect data from various sources(e.g. SQL database or OPC-server) to our cloud-based database. So you can do almost any analytics and create your own selections of data.
+    Сервис сбора данных в облачную базу данных. Источниками данных могут быть локальные базы данных, OPC сервера, файлы и прочее, в целом может быть поддержан почти любой источник, сбор происходит посредством отправки http запросов с клиентской программы, которая читает и преобразует данные из источников.
+Через веб-интерфейс будет возможность составления аналитики по данным из базы.
+</div>
+</div>
+{% endblock %}

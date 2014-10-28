@@ -1,5 +1,6 @@
 var INTEGER_REGEXP = /^\-?\d*$/;
 var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d+)?$/;
+var LATIN_REGEXP = /^[a-zA-Z0-9_.]+$/;
 
 angular.module('manageApp.directives', []).directive('integer', function() {
   return {
@@ -28,6 +29,21 @@ angular.module('manageApp.directives', []).directive('integer', function() {
           return parseFloat(viewValue.replace(',', '.'));
         } else {
           ctrl.$setValidity('float', false);
+          return undefined;
+        }
+      });
+    }
+  };
+}).directive('latinChars', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        if (LATIN_REGEXP.test(viewValue)) {
+          ctrl.$setValidity('latin', true);
+          return viewValue;
+        } else {
+          ctrl.$setValidity('latin', false);
           return undefined;
         }
       });

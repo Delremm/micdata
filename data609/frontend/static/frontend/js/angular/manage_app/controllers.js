@@ -19,10 +19,17 @@ angular.module('manageApp.controllers', []).controller(
         password: ""
     };
     $scope.add_node = function(){
-        var node_data = {};
+        var node_data = {title: $scope.node_to_add.name};
         $http.post("/api/nodes/", data=node_data).success(function(){
             $scope.refresh_nodes();
+            $scope.get_profile();
         })
+    };
+    $scope.delete_node = function(node){
+        $http.delete("/api/nodes/".concat(node.id).concat("/")).success(function(){
+            $scope.refresh_nodes();
+            $scope.get_profile();
+        });
     };
     $scope.refresh_nodes = function(){
         manageManager.get('/api/nodes/?format=json', function(data) {
